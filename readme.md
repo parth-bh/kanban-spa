@@ -4,6 +4,15 @@ Kanban is a task management application that can be used to track completed task
 
 I have created a Kanban board, which is a Single Page Application (SPA). I used the Vue.js framework for the frontend and the Flask framework for the backend. Kanban offers a convenient way to manage tasks and list them along with their completion status.
 
+Note: I have created a Kanban application with two methods: **SSR** (Server Side Rendering) and **SPA** (Single Page Application).
+
+1. In SSR (Server Side Rendering): No API is used, and all HTML is rendered from the backend (server). Data is transferred and manipulated within HTML using Jinja2. You can check out the SSR version in a different repository named "kanban-ssr."
+
+2. In SPA (Single Page Application): Here, I have separated the frontend and backend. For the frontend, I've utilized VueJS CDN to transform the app into an SPA. The backend is responsible for API handling, caching, and asynchronous tasks (powered by Celery). VueJS has been instrumental in making the app an SPA.
+
+This Repo demonstrates the **SPA** version.
+
+
 
 **Objective of the Application:**
 
