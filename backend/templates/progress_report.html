@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<title></title>
+</head>
+<body>
+	<h2> Monthly Progress Report : {{data['start_date']}} to {{data['last_date']}} </h2>
+	<h3>Hello {{data['user']}},</h3>
+	
+	{% if data['total_task']>0 %}
+		Hope you are happy. We ae sending you the monthy progress report for the month {{data['month']}}. <br><br>
+
+		Total number of task that you created : {{data['total_task']}} <br>
+		Number of Task Completed : {{data['completedTask_count']}} <br>
+		Number of Task Overdue : {{data['deadlineCrossTask_count']}} <br>
+		Number of Task still pending : {{data['progressTask_count']}} <br> <br>
+
+		Completed Percentage : {{data['completed_percent']}}% <br>
+		Overdue Percentage : {{data['deadline_percent']}}% <br>
+		<br>
+
+		{% if data['mode']=="pdf" %}
+			<img src="file://{{ data['image_path'] }}" alt="IMAGE NOT UPLOAD" height="500px" width="600px">	
+		{% else %}
+
+			<img src="data:image/png;base64,{{data['image_string']}}" alt="IMAGE NOT UPLOAD" height="500px" width="600px">
+			
+		{% endif %}
+		<div id='conclusion' style="color: blue;font-weight: bold;">
+			{% if data['deadlineCrossTask_count']==0 %}
+			Conclusion : You completed your all task within deadline. Excellent Work.
+			
+			{% elif data['completedTask_count'] > data['deadlineCrossTask_count'] %}
+			Conclusion : The #task completed is more than the #task overdue, So you are doing a good work.
+			
+			{% elif data['completedTask_count'] <= data['deadlineCrossTask_count'] %}
+			Conclusion : The #task completed is less than or #task overdue, So you have to do some hard work and try to do completed all task in next month.
+			
+			{% elif data['completedTask_count']==0 %}
+			Conclusion : You have not completed any task within deadline, So you have to do some hard work and try to do completed all task in next month.
+
+			{% endif %}
+		</div>
+
+		<br><br>
+		{% if data['completedTask_count']>0 %}
+			Following are the Completed Task in {{data['month']}}<br>
+			<ul>
+			{% for task in data['completedTask'] %}
+				<li>
+					Title : {{task['title']}} <br>
+					Content : {{task['content']}}<br>
+					Deadline : {{task['deadline']}}<br>
+					Creation Date : {{task['start_date']}}<br><br>
+				</li>
+			{% endfor %}
+			</ul>			
+		{% endif %}	
+
+		{% if data['deadlineCrossTask_count']>0 %}
+			Following are the Task that are not completed and deadline is crossed in {{data['month']}} <br>
+			<ul>
+			{% for task in data['deadlineCrossTask'] %}
+				<li>
+					Title : {{task['title']}} <br>
+					Content : {{task['content']}}<br>
+					Deadline : {{task['deadline']}}<br>
+					Creation Date : {{task['start_date']}}<br><br>
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+
+	{% else %}
+	
+		You have not created any task in {{data['month']}}
+	
+	{% endif %}
+	
+	<br><br>
+	Regards <br>
+	...
+	<br><br>
+
+</body>
+</html>

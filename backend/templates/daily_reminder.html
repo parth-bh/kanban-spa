@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<p> Dear {{data['user']}}, </p>
+	<p> Hope you are good.</p>
+	<p>This mail is for reminder purpose, there are some tasks that are not completed yet and deadline are nearby, please look into it and try to complete it before deadline.</p>
+	<p> Following are the details of tasks that are pending and deadline are nearby </p>
+	<ol>
+		{% for task in data['pending_task'] %}
+			<li>
+				Title : {{task['title']}} <br>
+				Content : {{task['content']}}<br>
+				Deadline : {{task['deadline']}}<br><br>
+
+			</li>
+		{% endfor %}
+	</ol>
+	<br>
+	Regards <br>
+	App Owner
+</body>
+</html>
